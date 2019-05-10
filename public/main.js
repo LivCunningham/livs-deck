@@ -32,7 +32,6 @@ const createDeck = () => {
         value: face[j].value,
         imageUrl: face[j].rank + '_of_' + suits[i] + '.png'
       }
-
       // Push creation to deck//
       deck.push(card)
       console.log('card pushed to deck')
