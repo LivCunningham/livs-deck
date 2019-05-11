@@ -14,3 +14,12 @@ body {
   align-items: center;
   flex-direction: column;
 }
+
+p {
+  color: coral;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+}

@@ -1,4 +1,4 @@
-const suits = ['hearts', 'clubs', 'spade', 'diamonds']
+const suits = ['Hearts', 'Clubs', 'Spade', 'Diamonds']
 
 const face = [
   { rank: 'Ace', value: 11 },
@@ -17,7 +17,8 @@ const face = [
 ]
 
 let deck = []
-let shownCard = []
+let player1 = []
+let dealer = []
 
 // create deck//
 const createDeck = () => {
@@ -28,9 +29,11 @@ const createDeck = () => {
 
       const card = {
         ranks: face[j].rank,
-        suits: suits[i],
         value: face[j].value,
-        imageUrl: face[j].rank + '_of_' + suits[i] + '.png'
+        suit: suits[i],
+
+        imageUrl:
+          './pics/' + face[j].rank.slice(0, 1) + suits.slice(0, 1) + '.jpg'
       }
       // Push creation to deck//
       deck.push(card)
@@ -42,7 +45,6 @@ const createDeck = () => {
 // Shuffle //
 
 const shuffle = () => {
-  shownCard = []
   for (let a = deck.length - 1; a > 0; a--) {
     let randomCard = Math.floor(Math.random() * deck.length)
 
@@ -53,18 +55,61 @@ const shuffle = () => {
     tempCard = deck[a]
 
     console.log(deck[a])
-    shownCard.push(deck[a])
+    deck.push(deck[a])
   }
 }
+
+// deal //
+
+const dealCard = () => {
+  const takeCard = deck.pop()
+  // create image element
+  const imageTag = document.createElement('img')
+  imageTag.src = takeCard.imageUrl
+  imageTag.setAttribute('class', 'card')
+  const playerHand = document.querySelector('.player1-hand')
+  player1.push(takeCard)
+  playerHand.appendChild(imageTag)
+}
+
+// document.querySelector('.output').textContent =
+//   takenCard.suits +
+//   'of' +
+//   takenCard.ranks +
+//   'has a value of' +
+//   takenCard.value
 
 const main = () => {
   createDeck()
   shuffle()
 }
 
-// deal //
-const dealCard = () => {}
+const play = () => {
+  shuffle()
+  dealCard()
+  dealCard()
+  const takeCard = deck.pop()
+  const takeCard2 = deck.pop()
+  dealer.push(takeCard, takeCard2)
+  console.log(dealer, player1)
+}
+
+const stay = () => {
+  const dealHand = document.querySelector('.dealers-hand')
+  const card1 = document.createElement('img')
+  const card2 = document.createElement('img')
+  card1.src = dealer[0].imageUrl
+  card2.src = dealer[1].imageUrl
+  card1.setAttribute('class', 'card')
+  card2.setAttribute('class', 'card')
+  dealHand.appendChild(card1)
+  dealHand.appendChild(card2)
+}
+
+document.querySelector('.shuffle').addEventListener('click', shuffle)
+document.querySelector('.deal').addEventListener('click', dealCard)
+document.querySelector('.stay').addEventListener('click', stay)
+document.querySelector('.play').addEventListener('click', play)
+// document.querySelector('.hit').addEventListener('click',hit)
 
 document.addEventListener('DOMContentLoaded', main)
-document.querySelector('.shuffle').addEventListener('click', createDeck)
-document.querySelector('.deal').addEventListener('click', dealCard)
