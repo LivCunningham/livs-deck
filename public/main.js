@@ -23,17 +23,17 @@ let dealer = []
 // create deck//
 const createDeck = () => {
   for (let i = 0; i < suits.length; i++) {
+    const suit = suits[i]
     console.log(suits) // get suit
     for (let j = 0; j < face.length; j++) {
       // deck generator: suits + face//
 
       const card = {
-        ranks: face[j].rank,
+        rank: face[j].rank,
         value: face[j].value,
         suit: suits[i],
-
         imageUrl:
-          './pics/' + face[j].rank.slice(0, 1) + suits.slice(0, 1) + '.jpg'
+          './stills/' + face[j].rank.slice(0, 1) + suit.slice(0, 1) + '.jpg'
       }
       // Push creation to deck//
       deck.push(card)
