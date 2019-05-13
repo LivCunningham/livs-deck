@@ -10,16 +10,31 @@ body {
   margin: 0;
   min-height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
 }
 
-p {
-  color: coral;
+.title {
+  margin-left: 40rem;
+  margin-top: 15rem;
 }
 
 .card {
-  width: 100px;
+  width: 90px;
   height: 100px;
+}
+
+.controls {
+  margin-left: 38rem;
+}
+
+.player-1-hand {
+  margin-left: 42rem;
+}
+
+.dealers-hand {
+  margin-left: 40rem;
+}
+
+main {
+  background-image: 1153 x 1091;
 }
