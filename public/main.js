@@ -21,7 +21,7 @@ let player1 = []
 let dealer = []
 
 // create deck//
-const createDeck = () => {
+const main = () => {
   for (let i = 0; i < suits.length; i++) {
     const suit = suits[i]
     console.log(suits) // get suit
@@ -31,9 +31,14 @@ const createDeck = () => {
       const card = {
         rank: face[j].rank,
         value: face[j].value,
-        suit: suits[i],
+        suits: suits[i],
         imageUrl:
           './stills/' + face[j].rank.slice(0, 1) + suit.slice(0, 1) + '.jpg'
+      }
+
+      if (card.rank === '10') {
+        // Set the imageUrl of the card to the correct value
+        card.imageUrl = './still/' + '10' + suit.slice(0, 1) + '.jpg'
       }
       // Push creation to deck//
       deck.push(card)
@@ -45,17 +50,17 @@ const createDeck = () => {
 // Shuffle //
 
 const shuffle = () => {
-  for (let a = deck.length - 1; a > 0; a--) {
-    let randomCard = Math.floor(Math.random() * deck.length)
+  for (let i = deck.length - 1; i > 0; i--) {
+    let randomCard = Math.floor(Math.random() * 52)
 
-    let tempCard = deck[a]
+    let tempCard = deck[i]
 
-    deck[a] = deck[randomCard]
+    deck[i] = deck[randomCard]
     randomCard = tempCard
-    tempCard = deck[a]
+    tempCard = deck[i]
 
-    console.log(deck[a])
-    deck.push(deck[a])
+    console.log(deck[i])
+    deck.push(deck[i])
   }
 }
 
@@ -67,7 +72,7 @@ const dealCard = () => {
   const imageTag = document.createElement('img')
   imageTag.src = takeCard.imageUrl
   imageTag.setAttribute('class', 'card')
-  const playerHand = document.querySelector('.player1-hand')
+  const playerHand = document.querySelector('.player-1-hand')
   player1.push(takeCard)
   playerHand.appendChild(imageTag)
 }
@@ -79,10 +84,10 @@ const dealCard = () => {
 //   'has a value of' +
 //   takenCard.value
 
-const main = () => {
-  createDeck()
-  shuffle()
-}
+// const main = () => {
+//   createDeck()
+//   shuffle()
+// }
 
 const play = () => {
   shuffle()
@@ -92,6 +97,7 @@ const play = () => {
   const takeCard2 = deck.pop()
   dealer.push(takeCard, takeCard2)
   console.log(dealer, player1)
+  document.querySelector('.play').disabled = true
 }
 
 const stay = () => {
@@ -104,12 +110,13 @@ const stay = () => {
   card2.setAttribute('class', 'card')
   dealHand.appendChild(card1)
   dealHand.appendChild(card2)
+  document.querySelector('.deal').disabled = true
+  document.querySelector('.stay').disabled = true
 }
 
 document.querySelector('.shuffle').addEventListener('click', shuffle)
 document.querySelector('.deal').addEventListener('click', dealCard)
 document.querySelector('.stay').addEventListener('click', stay)
 document.querySelector('.play').addEventListener('click', play)
-// document.querySelector('.hit').addEventListener('click',hit)
 
 document.addEventListener('DOMContentLoaded', main)
