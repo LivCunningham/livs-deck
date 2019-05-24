@@ -19,7 +19,11 @@ const face = [
 let deck = []
 let player1 = []
 let dealer = []
-
+let playerScore = 0
+// let dealerHand = []
+// let dealerScore = []
+let dealerHand = []
+let dealerScore = 0
 // create deck//
 const main = () => {
   for (let i = 0; i < suits.length; i++) {
@@ -70,11 +74,18 @@ const dealCard = () => {
   const takeCard = deck.pop()
   // create image element
   const imageTag = document.createElement('img')
+  // add new card to HTML
   imageTag.src = takeCard.imageUrl
   imageTag.setAttribute('class', 'card')
   const playerHand = document.querySelector('.player-1-hand')
   player1.push(takeCard)
   playerHand.appendChild(imageTag)
+  // update player score
+  // start at zero
+  // add the value of the card to the player
+  playerScore += takeCard.value
+  // update HTML
+  document.querySelector('.player-score').textcontent = playerScore
 }
 
 // document.querySelector('.output').textContent =
@@ -112,6 +123,26 @@ const stay = () => {
   dealHand.appendChild(card2)
   document.querySelector('.deal').disabled = true
   document.querySelector('.stay').disabled = true
+}
+
+const dealCardToDealer = () => {
+  const dealtCard = deck.pop()
+  // add to dealer hand (push)
+  dealerHand.push(dealtCard)
+  // add the new card to the HTML
+  // create the new element
+  const img = document.createElement('img')
+  // set the content
+  img.src = '/images/cards/card-back.png'
+  // add new element to the HTML
+  // const li = document.createElement('li')
+  // li.appendChild(img)
+  document.querySelector('.dealer-hand').appendChild(img)
+  // update the dealer score
+  // add the value of the card to the dealer
+  dealerScore += dealtCard.value
+  // update the html
+  document.querySelector('.dealer-score').textContent = dealerScore
 }
 
 document.querySelector('.shuffle').addEventListener('click', shuffle)
